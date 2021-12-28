@@ -76,11 +76,11 @@ while [[ $# -gt 0 ]]; do
             ;;
         -c|--cid)
 		    tmp=$2
-		    if [[ ${#tmp} < 32 ]] ; then
+		    if [[ ${#tmp} -lt 32 ]] ; then
 			  printf "Supplied CID too short\n"
 			  exit 1
 			fi
-		    if [[ ${#tmp} > 33 ]] ; then
+		    if [[ ${#tmp} -gt 33 ]] ; then
 			  printf "Supplied CID too long\n"
 			  exit 1
 			fi
@@ -206,7 +206,7 @@ if [[ $cmd_additional = "y" ]]; then
   printf "\n"
 fi
 
-if [[ ${#cidinfo} < 32  ]] ; then 
+if [[ ${#cidinfo} -lt 32  ]] ; then 
   # we expect something like 1b534d454332515430615763c7013633
   printf "No or invalid CID content\n"
   printf $cidinfo
