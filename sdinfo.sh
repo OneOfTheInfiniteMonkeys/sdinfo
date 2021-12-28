@@ -411,18 +411,18 @@ d_psn=$((16#$psn))
 
 # Decode the manufactured date contained within the CID string
 d_mdt=""
-d_mdt=$((16#${mdt:0:2})) #                        Extract the year from the CID
-d_mdt=$((d_mdt + 2000))  #                        Add the centry offset of 2000
+d_mdt=$((16#${mdt:0:2})) #                          Extract the year from the CID
+d_mdt=$((d_mdt + 2000))  #                          Add the centry offset of 2000
 if [[ $d_mdt -gt $(date +%Y) ]] ; then  #           Probable date coding error - not to SD format rules
   d_mdt=2000
 fi
 
-d_mdm=$((16#${mdt:2:1})) #                        Extract the month 
-if [[ $d_mdm -gt 12 ]] || [[ d_mdm = 0 ]]; then #   Probable date coding error - not to SD format rules
+d_mdm=$((16#${mdt:2:1})) #                          Extract the month 
+if [[ $d_mdm -gt 12 ]] || [[ $d_mdm = 0 ]]; then #  Probable date coding error - not to SD format rules
   d_mdm=1
 fi 
 
-d_mdt=$d_mdt"/"$d_mdm #                           Concatenate Year and month with sperator
+d_mdt=$d_mdt"/"$d_mdm #                             Concatenate Year and month with sperator
 # Calculate approximate number of days - assume 1st of month
 d_ndy=$(( ($(date +%s ) - $(date --date="$d_mdt"/1 +%s)) / (86400)  )) # 
 
