@@ -1,5 +1,6 @@
 # sdinfo
-Micro SD Card Information in PiOS BASH 
+<a href="https://en.wikipedia.org/wiki/SD_card">Micro SD Card</a> Information in PiOS BASH
+With many devices and cards this utility eases card identification and maintenance as the Micro SD card may be difficult to access. The utility also provides an estmate of the cards age from the manufacturing date so that cards can be mangesd based on age if desired
 
 <strong> NOTE BETA - MANY BUGS </strong>
 
