@@ -163,7 +163,7 @@ function Logo() {
   printf "      | |  %s" "$COL_WhiteText"
   printf "%-.15s" " $App_Name      "
   printf "%s==| \n" "$COL_Logo"
-  printf "      | |   ${App_rel_date}  ==| \n"
+  printf "      | |   %s  ==| \n" "${App_rel_date}"
   printf "      | |               ==| \n"
   printf "      | |       __    ____| \n"
   printf "      |________/  |__/      \n"
@@ -183,8 +183,8 @@ if [[ $cmd_minimal = "n" ]] ; then
 fi  
 
 if [[ $cmd_extcid = "" ]]; then 
-  cidpath=$(find $cmd_cidsrc -name 'cid' -print 2>/dev/null)
-  cidinfo=$(cat $cidpath)
+  cidpath=$(find "$cmd_cidsrc" -name "cid" -print 2>/dev/null)
+  cidinfo=$(cat "$cidpath")
 else
   cidpath="/"
   cidinfo=$cmd_extcid
@@ -192,9 +192,9 @@ fi
 
 if [[ $cidpath == "" ]]; then
   # Appears as if there is no SD
-  printf "No CID file located for an SD card."
-  printf " - Possibly there is no SD card or the code"
-  printf "   was unable to identify a suitable entry."
+  printf "No CID file located for an SD card.\n"
+  printf " - Possibly there is no SD card or the code\n"
+  printf "   was unable to identify a suitable entry.\n"
   exit 1
 fi
 
@@ -209,8 +209,7 @@ fi
 if [[ ${#cidinfo} -lt 32  ]] ; then 
   # we expect something like 1b534d454332515430615763c7013633
   printf "No or invalid CID content\n"
-  printf $cidinfo
-  printf "\n"
+  printf "%s \n" "$cidinfo"
   exit 2
 fi
 
@@ -429,7 +428,7 @@ d_ndy=$(( ($(date +%s ) - $(date --date="$d_mdt"/1 +%s)) / (86400)  )) #
 
 # Output the decoded data
 printf "MID : %s\n" "$d_mid"
-if [[ $d_mid_aka > '' ]] ; then
+if [[ $d_mid_aka -gt '' ]] ; then
   if [[ $cmd_additional = "y" ]] ; then
     printf "AKA : %s\n" "$d_mid_aka"
   fi	 
