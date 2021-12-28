@@ -92,9 +92,9 @@ while [[ $# -gt 0 ]]; do
             cmd_minimal="y"
             ;;
         -s|--sourcepath)
- 		    if [ -d $2 ] ; then
+ 		    if [ -d "$2" ] ; then
 		      printf "Directory %s \n" "$2"
-			  cmd_cidsrc=$2  
+			  cmd_cidsrc="$2"  
 			else 
 			  printf "Unable to locate folder\n"
               exit 1			
@@ -392,7 +392,7 @@ esac
 
 # Decode the OEM ID a two character ASCII code frm the two hex OID bytes
 d_oid=""
-if [[ $((16#${oid:0:2})) < 32 ]] || [[ $((16#${pnm:2:2})) < 32 ]] ; then
+if [[ $((16#${oid:0:2})) -lt 32 ]] || [[ $((16#${pnm:2:2})) -lt 32 ]] ; then
   d_oid=$((16#${oid:0:2}))$((16#${oid:2:2}))
 else
   d_oid=$(printf '0x'${oid:0:2}'.0x'+${oid:2:2} | xxd -r)  
@@ -413,12 +413,12 @@ d_psn=$((16#$psn))
 d_mdt=""
 d_mdt=$((16#${mdt:0:2})) #                        Extract the year from the CID
 d_mdt=$((d_mdt + 2000))  #                        Add the centry offset of 2000
-if [[ $d_mdt > $(date +%Y) ]] ; then  #           Probable date coding error - not to SD format rules
+if [[ $d_mdt -gt $(date +%Y) ]] ; then  #           Probable date coding error - not to SD format rules
   d_mdt=2000
 fi
 
 d_mdm=$((16#${mdt:2:1})) #                        Extract the month 
-if [[ $d_mdm > 12 ]] || [[ d_mdm = 0 ]]; then #   Probable date coding error - not to SD format rules
+if [[ $d_mdm -gt 12 ]] || [[ d_mdm = 0 ]]; then #   Probable date coding error - not to SD format rules
   d_mdm=1
 fi 
 
