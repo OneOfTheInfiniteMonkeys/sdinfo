@@ -394,12 +394,12 @@ d_oid=""
 if [[ $((16#${oid:0:2})) -lt 32 ]] || [[ $((16#${pnm:2:2})) -lt 32 ]] ; then
   d_oid=$((16#${oid:0:2}))$((16#${oid:2:2}))
 else
-  d_oid=$(printf '0x'${oid:0:2}'.0x'+${oid:2:2} | xxd -r)  
+  d_oid=$(printf '0x'"${oid:0:2}"'.0x'+"${oid:2:2}" | xxd -r)
 fi  
 
 # Decode the Part Name from hex to decimal
 d_pnm=""
-d_pnm=$(printf '0x'${pnm:0:2}'.0x'${pnm:2:2}'.0x'${pnm:4:2}'.0x'${pnm:6:2}'.0x'${pnm:8:2} | xxd -r)
+d_pnm=$(printf '0x'"${pnm:0:2}"'.0x'"${pnm:2:2}"'.0x'"${pnm:4:2}"'.0x'"${pnm:6:2}"'.0x'"${pnm:8:2}" | xxd -r)
 
 d_prv=""
 d_prv=$prv
