@@ -46,7 +46,6 @@ To update
 run git  
 &nbsp;&nbsp; sudo git pull  
 
-### Typical Output
 ### Options
 sdinfo supports the following command line parameters :  
 
@@ -68,15 +67,15 @@ sdinfo supports the following command line parameters :
 ### Output Explanation  
 A typical output from sdinfo is shown below for a Raspberry Pi SD card:  
 
-       ___________________
-      |                   |
-      | |               ==|
-      | |               ==|
-      | |   SDInfo      ==|
-      | |   2021-12-24  ==|
-      | |               ==|
-      | |       __    ____|
-      |________/  |__/
+       ___________________  
+      |                   |  
+      | |               ==|  
+      | |               ==|  
+      | |   SDInfo      ==|  
+      | |   2021-12-24  ==|  
+      | |               ==|  
+      | |       __    ____|  
+      |________/  |__/  
 
 
 MID : Samsung
@@ -101,7 +100,7 @@ The line consists of the following information :
 
 Age in days is calculated from the manufactured date and the systems current date. It assumes first of the month as the CID has no day number, assuming a start of year 2000 (2 characters), and a month number (1 character).  
 
-This code decodes the presented microSD card CID data and does not rely on your OS to determine the information presented. Thus you may see differences between information presented by the OS and by this script.  
+This code decodes the presented microSD card CID data and does not rely on your OS to determine the information presented. Thus you may see differences between information presented by the OS and by this script (Caveat emptor).  
 
 ### Trademarks, Affiliations, Information Provenance
 Trademarks are owned by their respective holders.  
