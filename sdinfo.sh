@@ -70,7 +70,8 @@ COL_WhiteText=$(tput setaf 7)            # Bright White
 cmd_additional="n"                                # Don't output additional detection information
 cmd_minimal="n"                                   # Install all needed and optional pacakges for fully featured installation
 cmd_cidsrc="/"                                    # Default path to start seaching for CID - reduces potential miss hits
-cmd_extcid=""
+cmd_extcid=""                                     # Empty for no externaly supplied CID string
+cmd_table="y"                                     # Table output format
 
 #---------------------------------------
 # Process Command Line Parameters
@@ -109,6 +110,9 @@ while [[ $# -gt 0 ]]; do
               exit 1			
 		    fi
             ;;
+         -t|--table)
+            cmd_table="n"
+            ;;			
         -v|--version)
             printf "      %s %s %s ( %s %s ) \n" "$App_Name" "$PROG" "$App_version" "$App_rel_date" "$App_rel_time"
             exit 0
@@ -435,29 +439,42 @@ d_mdt=$d_mdt"/"$d_mdm #                             Concatenate Year and month w
 d_ndy=$(( ($(date +%s ) - $(date --date="$d_mdt"/1 +%s)) / (86400)  )) # 
 
 
+#---------------------------------------
 # Output the decoded data
-printf "MID : %s\n" "$d_mid"
-if [[ $d_mid_aka -gt '' ]] ; then
-  if [[ $cmd_additional = "y" ]] ; then
-    printf "AKA : %s\n" "$d_mid_aka"
-  fi	 
-fi
-printf "OID : %s\n" "$d_oid"
-if [[ $cmd_additional = "y" ]] ; then
-  if [[ $d_mid_id = "$d_oid" ]] ; then
-    printf "IDC : Match\n"
+if [[ $cmd_table = "y" ]] ; then
+  # Table output
+  printf "MID : %s\n" "$d_mid"
+  if [[ $d_mid_aka -gt '' ]] ; then
+    if [[ $cmd_additional = "y" ]] ; then
+      printf "AKA : %s\n" "$d_mid_aka"
+    fi	 
   fi
-fi
-printf "PNM : %s\n" "$d_pnm"
-printf "PRV : %s\n" "$d_prv"
-printf "PSN : %s\n" "$d_psn"
-if [[ $cmd_minimal = "n" ]] ; then
-  printf "MDT : %s\n" "$d_mdt/1"
+  printf "OID : %s\n" "$d_oid"
+  if [[ $cmd_additional = "y" ]] ; then
+    if [[ $d_mid_id = "$d_oid" ]] ; then
+      printf "IDC : Match\n"
+    fi
+  fi
+  printf "PNM : %s\n" "$d_pnm"
+  printf "PRV : %s\n" "$d_prv"
+  printf "PSN : %s\n" "$d_psn"
+  if [[ $cmd_minimal = "n" ]] ; then
+    printf "MDT : %s\n" "$d_mdt/1"
+  else
+    printf "MDT : %s\n" "$d_mdt"
+  fi  
+  if [[ $cmd_minimal = "n" ]] ; then
+    printf "AID : %s\n" "$d_ndy"
+  fi  
+  printf "\n"
 else
-  printf "MDT : %s\n" "$d_mdt"
-fi  
-if [[ $cmd_minimal = "n" ]] ; then
-  printf "AID : %s\n" "$d_ndy"
-fi  
-printf "\n"
-
+  # Single line output
+  printf "MID : %s " "$d_mid"
+  printf "OID : %s " "$d_oid"
+  printf "PNM : %s " "$d_pnm"
+  printf "PRV : %s " "$d_prv"
+  printf "PSN : %s " "$d_psn"
+  printf "MDT : %s " "$d_mdt"
+  printf "AID : %s " "$d_ndy"
+  printf "\n"
+fi
