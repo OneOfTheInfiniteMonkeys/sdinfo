@@ -97,5 +97,13 @@ The line consists of the following information :
   <tr><td> PSN </td><td> Part serial number              </td></tr>
   <tr><td> MDT </td><td> Manufactured date yyyy/mm/01    </td></tr>
   <tr><td> AID </td><td> Age in days                     </td></tr>
-  
 </table>
+
+Age in days is calculated from the manufactured date and the systems current date. It assumes first of the month as the CID has no day number, assuming a start of year 2000 (2 characters), and a month number (1 character).  
+
+This code decodes the presented microSD card CID data and does not rely on your OS to determine the information presented. Thus you may see differences between information presented by the OS and by this script.  
+
+### Trademarks, Affiliations, Information Provenance
+Trademarks are owned by their respective holders.  
+No affiliation or association is implied or should be inferred with any organisation.  
+Information is provided for <strong>Indication Only</strong>.
