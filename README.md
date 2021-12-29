@@ -5,7 +5,7 @@ With many devices and cards this utility eases card identification and maintenan
 <strong> NOTE BETA - MANY BUGS </strong>
 
 ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/OneOfTheInfiniteMonkeys/sdinfo?include_prereleases)
-[![Build Status](https://travis-ci.com/OneOfTheInfiniteMonkeys/sdinfo.svg?branch=master)](https://travis-ci.com/github/OneOfTheInfiniteMonkeys/sdinfo)
+[![Build Status](https://app.travis-ci.com/OneOfTheInfiniteMonkeys/sdinfo.svg?branch=main)](https://travis-ci.com/github/OneOfTheInfiniteMonkeys/sdinfo)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/OneOfTheInfiniteMonkeys/sdinfo/graphs/commit-activity)
 ![GitHub](https://img.shields.io/github/license/OneOftheinfinitemonkeys/sdinfo)
 ![GitHub repo size](https://img.shields.io/github/repo-size/OneOfTheInfiniteMonkeys/sdinfo)
