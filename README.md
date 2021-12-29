@@ -36,7 +36,7 @@ Run the script :
 &nbsp;&nbsp; bash sdinfo.sh  
 The script will take some time to run as it searches for 
 
-To test the script with an SD Card CID  
+To test the script with an SD Card CID (e.g. from another system, list etc.)  
 &nbsp;&nbsp; cd ~/sdinfo  
 &nbsp;&nbsp; bash sdinfo.sh -c 1b534d454332515430615763c7013633  
 
@@ -52,7 +52,7 @@ sdinfo supports the following command line parameters :
 
 <table>
   <tr><td>  -a, --additional  </td><td> Output additional information  </td></tr>
-  <tr><td>  -m, --minimal     </td><td> Only minimal ouptut from the script.  </td></tr>
+  <tr><td>  -m, --minimal     </td><td> Only minimal output from the script  </td></tr>
 </table>
 
 ### Commands
