@@ -53,6 +53,7 @@ sdinfo supports the following command line parameters :
 <table>
   <tr><td>  -a, --additional  </td><td> Output additional information  </td></tr>
   <tr><td>  -m, --minimal     </td><td> Only minimal output from the script  </td></tr>
+  <tr><td>  -t, --table       </td><td> Switch off table output (typicaly use with -m)  </td></tr>
 </table>
 
 ### Commands
