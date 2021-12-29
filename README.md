@@ -1,6 +1,6 @@
 # sdinfo
 <a href="https://en.wikipedia.org/wiki/SD_card" target="_blank">Micro SD Card</a> Information in <a href="https://en.wikipedia.org/wiki/Raspberry_Pi_OS">PiOS</a> <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)" target="_blank">BASH</a>  
-With many devices and cards this utility eases card identification and maintenance, as the Micro SD card may be difficult to access. The utility also provides an estimate of the cards age from the manufacturing date to facilitate management based on age if desired.  
+With many devices and cards this utility eases card identification and maintenance, as the microSD card may be difficult to access. The utility also provides an estimate of the cards age from the manufacturing date to facilitate management based on age if desired.  
 
 ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/OneOfTheInfiniteMonkeys/sdinfo?include_prereleases)
 [![Build Status](https://app.travis-ci.com/OneOfTheInfiniteMonkeys/sdinfo.svg?branch=main)](https://travis-ci.com/github/OneOfTheInfiniteMonkeys/sdinfo)
