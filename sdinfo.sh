@@ -46,14 +46,23 @@ readonly App_Name="SDInfo"                        # Default application name
 # white     COLOR_WHITE       7     max,max,max
 
 # The format of color coding below permits use of colour codes via printf "%s" $COL_StdText
-readonly COL_Logo=$(tput setaf 3)                 # Yellow
-readonly COL_StdText=$(tput setaf 5)              # Magenta
-readonly COL_MnuText=$(tput setaf 5)              # Magenta
-readonly COL_WhiteText=$(tput setaf 7)            # Bright White
-readonly COL_RedText=$(tput setaf 1)              # Bright Red
-readonly COL_Tck=$(tput setaf 2)                  # Bright Green
-readonly COL_Crs=$(tput setaf 1)                  # Bright Red
-readonly COL_Spinner=$(tput setaf 6)              # Cyan
+COL_Logo = ""
+COL_StdText=""
+COL_MnuText=""
+COL_WhiteText=""
+COL_RedText=""
+COL_Tck=""
+COL_Crs=""
+COL_Spinner=""
+
+COL_Logo=$(tput setaf 3)                 # Yellow
+COL_StdText=$(tput setaf 5)              # Magenta
+COL_MnuText=$(tput setaf 5)              # Magenta
+COL_WhiteText=$(tput setaf 7)            # Bright White
+COL_RedText=$(tput setaf 1)              # Bright Red
+COL_Tck=$(tput setaf 2)                  # Bright Green
+COL_Crs=$(tput setaf 1)                  # Bright Red
+COL_Spinner=$(tput setaf 6)              # Cyan
 
 #---------------------------------------
 # Set defaults for any Command Line Parameters
@@ -434,6 +443,11 @@ if [[ $d_mid_aka -gt '' ]] ; then
   fi	 
 fi
 printf "OID : %s\n" "$d_oid"
+if [[ $cmd_additional = "y" ]] ; then
+  if [[ $d_mid_id = $d_oid ]] ; then
+    printf "IDC : Match\n"
+  fi
+fi
 printf "PNM : %s\n" "$d_pnm"
 printf "PRV : %s\n" "$d_prv"
 printf "PSN : %s\n" "$d_psn"
