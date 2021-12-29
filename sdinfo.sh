@@ -68,7 +68,7 @@ COL_WhiteText=$(tput setaf 7)            # Bright White
 # Set defaults for any Command Line Parameters
 #---------------------------------------
 cmd_additional="n"                                # Don't output additional detection information
-cmd_minimal="n"                                   # Install all needed and optional pacakges for fully featured installation
+cmd_minimal="n"                                   # Don't ouput minimal information (i.e. use standard information output)
 cmd_cidsrc="/"                                    # Default path to start seaching for CID - reduces potential miss hits
 cmd_extcid=""                                     # Empty for no externaly supplied CID string
 cmd_table="y"                                     # Table output format
@@ -85,32 +85,36 @@ while [[ $# -gt 0 ]]; do
             cmd_additional="y"
             ;;
         -c|--cid)
-		    tmp=$2
-		    if [[ ${#tmp} -lt 32 ]] ; then
-			  printf "Supplied CID too short\n"
-			  exit 1
-			fi
-		    if [[ ${#tmp} -gt 33 ]] ; then
-			  printf "Supplied CID too long\n"
-			  exit 1
-			fi
-			tmp=""
-		    cmd_extcid=$2
-			;;
+	    # If a CID is supplied by the user, do some basic checks first
+            tmp=$2
+	    if [[ ${#tmp} -lt 32 ]] ; then
+              printf "Supplied CID too short\n"
+	      exit 1
+            fi
+	    if [[ ${#tmp} -gt 33 ]] ; then
+              printf "Supplied CID too long\n"
+              exit 1
+            fi
+            tmp=""
+	    # Basic tests passed - assign user supplied CID for processing
+	    cmd_extcid=$2
+	    ;;
         -m|--minimal)
             # Minimal output infomation. i.e. No banners or other messages
             cmd_minimal="y"
             ;;
         -s|--sourcepath)
- 		    if [ -d "$2" ] ; then
-		      printf "Directory %s \n" "$2"
-			  cmd_cidsrc="$2"  
-			else 
-			  printf "Unable to locate folder\n"
-              exit 1			
-		    fi
+	    # User supplied location of CID file
+            if [ -d "$2" ] ; then
+              printf "Directory %s \n" "$2"
+              cmd_cidsrc="$2"  
+            else 
+              printf "Unable to locate folder\n"
+              exit 1
+            fi
             ;;
          -t|--table)
+	    # Don't output results as a table, output on one line
             cmd_table="n"
             ;;			
         -v|--version)
@@ -141,7 +145,7 @@ while [[ $# -gt 0 ]]; do
 			printf "    AID : 1092              - Age in days from MDT\n"
             printf "\n\n"
 			printf " All data for indication only\n"
-			printf " Source - https://github.com/OneOfTheInfiniteMonkeys/sdinfo\n"
+			printf " Source - <https://github.com/OneOfTheInfiniteMonkeys/sdinfo>\n"
             exit 0
             ;;
         # *)
@@ -189,11 +193,9 @@ function Logo() {
 # Output Install Logo to the terminal
 if [[ $cmd_minimal = "n" ]] ; then
   Logo
-
   printf " - All data for indication only !"
   printf "\r                                  "
   printf "\n"
-
 fi  
 
 if [[ $cmd_extcid = "" ]]; then 
@@ -227,6 +229,7 @@ if [[ ${#cidinfo} -lt 32  ]] ; then
   exit 2
 fi
 
+#---------------------------------------
 # Decode CID
 # example               1b534d454332515430615763c7013633
 #                       1b 534d 4543325154 30 615763c7 0136 33
@@ -251,6 +254,7 @@ if [[ $cmd_additional = "y" ]]; then
   printf "\n"
 fi
 
+#---------------------------------------
 # The principle applied is source identified as manufacturer where possible,
 # which may not match marking see www.bunniestudios.com/blog/?page_id=1022
 # Sources - Manufacturers data sheets, some SD cards, 
@@ -403,6 +407,7 @@ case $mid in
 	;;
 esac
 
+#---------------------------------------
 # Decode the OEM ID a two character ASCII code frm the two hex OID bytes
 d_oid=""
 if [[ $((16#${oid:0:2})) -lt 32 ]] || [[ $((16#${pnm:2:2})) -lt 32 ]] ; then
@@ -411,6 +416,7 @@ else
   d_oid=$(printf "%s" "0x${oid:0:2}.0x${oid:2:2}" | xxd -r)
 fi  
 
+#---------------------------------------
 # Decode the Part Name from hex to decimal
 d_pnm=""
 d_pnm=$(printf "%s" "0x${pnm:0:2}.0x${pnm:2:2}.0x${pnm:4:2}.0x${pnm:6:2}.0x${pnm:8:2}" | xxd -r)
@@ -418,10 +424,12 @@ d_pnm=$(printf "%s" "0x${pnm:0:2}.0x${pnm:2:2}.0x${pnm:4:2}.0x${pnm:6:2}.0x${pnm
 d_prv=""
 d_prv=$prv
 
+#---------------------------------------
 # Decode the part serial number from Hex to Integer
 d_psn=""
 d_psn=$((16#$psn))
 
+#---------------------------------------
 # Decode the manufactured date contained within the CID string
 d_mdt=""
 d_mdt=$((16#${mdt:0:2})) #                          Extract the year from the CID
@@ -469,7 +477,7 @@ if [[ $cmd_table = "y" ]] ; then
   fi  
   printf "\n"
 else
-  # Single line output
+  # Single line minimalist output
   printf "MID : %s " "$d_mid"
   printf "OID : %s " "$d_oid"
   printf "PNM : %s " "$d_pnm"
