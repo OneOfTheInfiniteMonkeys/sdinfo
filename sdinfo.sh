@@ -141,6 +141,7 @@ while [[ $# -gt 0 ]]; do
 			printf "    AID : 1092              - Age in days from MDT\n"
             printf "\n\n"
 			printf " All data for indication only\n"
+			printf " Source - https://github.com/OneOfTheInfiniteMonkeys/sdinfo\n"
             exit 0
             ;;
         # *)
