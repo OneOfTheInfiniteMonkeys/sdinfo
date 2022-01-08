@@ -78,7 +78,7 @@ cmd_table="y"                                     # Table output format
 #---------------------------------------
 PROG=${0##*/}                                     # Get script name to reporting in help as script may be adapted for other installs
 # Now see if a cry for 'help' was issued giving it absolute priority, even if other paramters were passed
-while [[ $# -gt 0 ]]; do
+while [[ $# -gt 0 ]] ; do
     case "$1" in
         -a|--additional)
             printf "      - Additional information will be output\n"
@@ -198,7 +198,7 @@ if [[ $cmd_minimal = "n" ]] ; then
   printf "\n"
 fi  
 
-if [[ $cmd_extcid = "" ]]; then 
+if [[ $cmd_extcid = "" ]] ; then 
   cidpath=$(find "$cmd_cidsrc" -name "cid" -print 2>/dev/null)
   cidinfo=$(cat "$cidpath")
 else
@@ -206,7 +206,7 @@ else
   cidinfo=$cmd_extcid
 fi  
 
-if [[ $cidpath == "" ]]; then
+if [[ $cidpath == "" ]] ; then
   # Appears as if there is no SD
   printf "No CID file located for an SD card.\n"
   printf " - Possibly there is no SD card or the code\n"
@@ -215,7 +215,7 @@ if [[ $cidpath == "" ]]; then
 fi
 
 
-if [[ $cmd_additional = "y" ]]; then
+if [[ $cmd_additional = "y" ]] ; then
   # Output located path and CID detected
   printf "PTH : %s \n" "$cidpath"
   printf "CID : %s \n" "$cidinfo"
@@ -242,7 +242,7 @@ mdt=${cidinfo:27:3} #    3 chars - 1.5 byte - Manf. Date - 12 bits - BCD YYM (YY
 crc=${cidinfo:30:2} #    2 chars - 1 byte   - Data CRC - 7 bits (LSB always 1 i.e. odd)
 #((mdt&=4095))       #    Limit MDT to 12 bits
 
-if [[ $cmd_additional = "y" ]]; then
+if [[ $cmd_additional = "y" ]] ; then
   # output raw infromation from CID
   printf "MID : %s\n" "$mid"
   printf "OID : %s\n" "$oid"
@@ -439,7 +439,7 @@ if [[ $d_mdt -gt $(date +%Y) ]] ; then  #           Probable date coding error -
 fi
 
 d_mdm=$((16#${mdt:2:1})) #                          Extract the month 
-if [[ $d_mdm -gt 12 ]] || [[ $d_mdm = 0 ]]; then #  Probable date coding error - not to SD format rules
+if [[ $d_mdm -gt 12 ]] || [[ $d_mdm = 0 ]] ; then # Probable date coding error - not to SD format rules
   d_mdm=1
 fi 
 
