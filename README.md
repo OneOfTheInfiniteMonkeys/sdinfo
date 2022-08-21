@@ -48,7 +48,7 @@ To test the script with an SD Card CID (e.g. from another system, list etc.)
 &nbsp;&nbsp; bash sdinfo.sh -c 1b534d454332515430615763c7013633  
 
 
-Alternative To update  
+### Update (using GIT)  
 The Git Pull command will download the latest version of the repository, immediately updating the local repository.  
 &nbsp;&nbsp; cd ~/sdinfo  
 run git  
