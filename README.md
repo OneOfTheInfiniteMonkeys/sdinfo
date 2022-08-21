@@ -93,9 +93,15 @@ PSN : 1633117127
 MDT : 2019/1/1  
 AID : 1092  
 
-The output format can be set as (using the -m -t options):  
+A concise output can be obtained using the -m and -t options together:  
+
+&nbsp;&nbsp; cd ~/sdinfo  
+  Run the script :  
+&nbsp;&nbsp; bash sdinfo.sh -m -t  
+
 MID : Samsung OID : SM  PNM : EC2QT PRV : 30 PSN : 1633117127 MDT : 2019/1/1 AID : 1092  
-    
+
+
 Consisting of the following information :
 <table>
   <tr><td> MID </td><td> Manufacturer Identifier         </td></tr>
@@ -109,7 +115,10 @@ Consisting of the following information :
 
 Age in days is calculated from the manufactured date and the systems current date. It assumes first of the month as the CID has no day number, assuming a start of year 2000 (2 characters), and a month number (1 character).  
 
-To see card re-branding use the -a option.
+To see card re-branding use the -a option:  
+&nbsp;&nbsp; cd ~/sdinfo  
+  Run the script :  
+&nbsp;&nbsp; bash sdinfo.sh -a    
     
 This code decodes the presented microSD card CID data and does not rely on your OS to determine the information presented. Thus you may see differences between information presented by the OS and by this script (Caveat emptor).  
 
