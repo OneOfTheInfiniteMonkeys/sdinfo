@@ -12,7 +12,7 @@ With many devices and cards this utility eases microSD card identification and m
 
 sdinfo identifies 31 microSD card manufacturers and 24 re-brand labels. The key advantage of 'sdinfo' being a BASH script, is Python, other languages or libraries are not required. If preferred, the script can be copy / pasted avoiding install of <a href="https://en.wikipedia.org/wiki/Git" target="_blank">GIT</a> (though GIT possibly a better option for version management). Developed on PiOS, the script may operate on other systems. However, has not been verfied.   
 
-<img src="https://raw.githubusercontent.com/OneOfTheInfiniteMonkeys/sdinfo/main/images/sdcards.png" width="300px" alt="Micro SD card selections. Image copyright (c) 21 Aug 2022 OneOfTheInfiniteMonkeys All Rights Reserved">
+<img src="https://raw.githubusercontent.com/OneOfTheInfiniteMonkeys/sdinfo/main/images/sdcards.png" width="300px" alt="Raspberry Pi Micro SD card selections. Image copyright (c) 21 Aug 2022 OneOfTheInfiniteMonkeys All Rights Reserved">
   
 <strong> NOTE </strong>  
   - Using the scripts -c option you can check cards from other systems.  
