@@ -6,10 +6,14 @@
 
 #--------><--------><--------><--------><--------><--------><--------><-------->
 # Author           : OneOfTheInfinteMonkeys
+# Revision         : 0.2
+# Date             : 01 Oct 2022
+# License          : MIT
+# Comments         : Updated card list
+#------------------:
 # Revision         : 0.1
 # Date             : 24 Dec 2021
-# License          : MIT
-#------------------:
+#                  :
 # Comments         : Recover Raspberry Pi SD Card information from the SD Card 
 #                  : CID
 #                  :
@@ -25,8 +29,8 @@
 #
 
 #---------------------------------------
-readonly App_version="00.10"                      # Version
-readonly App_rel_date="2021-12-24"                # Release date
+readonly App_version="00.20"                      # Version
+readonly App_rel_date="2022-10-01"                # Release date
 readonly App_rel_time="00:00"                     # Release time
 readonly App_Name="SDInfo"                        # Default application name
 
@@ -281,6 +285,10 @@ case $mid in
     d_mid='Ritek'
     d_mid_id='RK'
 	;;
+  '08')
+    d_mid='Silicon Power'
+    d_mid_id='SP'
+        ;;
   '09')
     d_mid='ATP'
     d_mid_id='AT'
@@ -294,6 +302,10 @@ case $mid in
     d_mid='Kingmax'
     d_mid_id='KG'
 	;;
+  '18')
+    d_mid='Infineon'
+    d_mid_id='IN'
+        ;;
   '19')
     d_mid='Dynacard'
     d_mid_id='DY'
@@ -310,7 +322,7 @@ case $mid in
   '1d')
     d_mid='Adata'
     d_mid_id='AD'
-	d_mid_aka=''
+	d_mid_aka='Corsair'
 	;;
   '27')
     d_mid='Phison'
@@ -330,10 +342,18 @@ case $mid in
     d_mid='Silicon Power'
     d_mid_id='SP'
 	;;
+  '33')
+    d_mid='STMicroelectronics'
+    d_mid_id='ST'
+        ;;
   '41')
     d_mid='Kingston'
     d_mid_id='SP'
 	;;
+  '45')
+    d_mid='Team Group'
+    d_mid_id='TG'
+        ;;
   '5d')
     d_mid='Swissbit'
     d_mid_id='SB'
@@ -349,10 +369,12 @@ case $mid in
   '6f')
     d_mid='Plantinum'
     d_mid_id='PL'
+        d_mid_aka='STMicroelectronics'
 	;;
   '73')
     d_mid='Fuji'
     d_mid_id='FJ'
+        d_mid_aka='Hama'
 	;;
   '74')
     d_mid='Jialec'
@@ -395,11 +417,19 @@ case $mid in
     d_mid_id='BE'
 	d_mid_aka='Hoodman'
 	;;
+  '9e')
+    d_mid='Lexar'
+    d_mid_id='LX'
+        ;;
   '9f')
     d_mid='Blackweb'
     d_mid_id='BW'
+        d_mid_aka='Texas Instruments'
 	;;
-	
+   'ff')
+     d_mid='Netac'
+     d_mid_id='NT'
+        ;;
   *)
     d_mid='unknown'
 	d_mid_id='XX' 
