@@ -6,18 +6,23 @@
 
 #--------><--------><--------><--------><--------><--------><--------><-------->
 # Author           : OneOfTheInfinteMonkeys
+# Revision         : 0.3
+# Date             : 04 Dec 2022
+# License          : MIT
+# Comments         : Updated card list, minor format changes to comments - Apacer 0xAD
+#------------------:
 # Revision         : 0.2
 # Date             : 01 Oct 2022
-# License          : MIT
-# Comments         : Updated card list
-#------------------:
+# Comment          : First packaged release - Updated card list
+#                  :
 # Revision         : 0.1
 # Date             : 24 Dec 2021
+# Comment          : First Github release
 #                  :
+#------------------:
 # Comments         : Recover Raspberry Pi SD Card information from the SD Card 
 #                  : CID
 #                  :
-# Comments         :
 #                  : Original source location :
 #                  : https://github.com/OneOfTheInfiniteMonkeys/sdinfo
 #                  :
@@ -28,10 +33,11 @@
 #--------------------------------------------------------------------------------
 #
 
+
 #---------------------------------------
-readonly App_version="00.20"                      # Version
-readonly App_rel_date="2022-10-01"                # Release date
-readonly App_rel_time="00:00"                     # Release time
+readonly App_version="00.30"                      # Version      - ##.##
+readonly App_rel_date="2022-12-04"                # Release date - yyyy-mm-dd
+readonly App_rel_time="00:00"                     # Release time - hh:mm
 readonly App_Name="SDInfo"                        # Default application name
 
 #--------------------------------------
@@ -262,7 +268,7 @@ fi
 # The principle applied is source identified as manufacturer where possible,
 # which may not match marking see www.bunniestudios.com/blog/?page_id=1022
 # Sources - Manufacturers data sheets, some SD cards, 
-# Cross checked with a number of sources in addition (in no specific order):
+# Cross checked with a number of sources in addition to those below (in no specific order):
 # elinux.org/RPi_SD_cards github.com/kbiva/stm32f103_projects https://goughlui.com/ www.cameramemeoryspeed.com 
 d_mid='' #                                        Decoded primary brand
 d_mid_id='' #                                     2 character ID
@@ -426,6 +432,10 @@ case $mid in
     d_mid_id='BW'
         d_mid_aka='Texas Instruments'
 	;;
+   'ad')
+     d_mid='Apacer'
+     d_mid_id='AP'
+       ;;
    'ff')
      d_mid='Netac'
      d_mid_id='NT'
