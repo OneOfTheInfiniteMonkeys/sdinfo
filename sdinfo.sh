@@ -6,11 +6,14 @@
 
 #--------><--------><--------><--------><--------><--------><--------><-------->
 # Author           : OneOfTheInfinteMonkeys
+# Revision         : 0.4
+# Date             : 07 Dec 2022
+# License          : MIT
+# Comments         : Added check version -cv against Github - spell check on comments
+#------------------:
 # Revision         : 0.3
 # Date             : 04 Dec 2022
-# License          : MIT
-# Comments         : Updated card list, minor format changes to comments - Apacer 0xAD
-#------------------:
+# Comment          : Updated card list, minor format changes to comments - Apacer 0xAD
 # Revision         : 0.2
 # Date             : 01 Oct 2022
 # Comment          : First packaged release - Updated card list
@@ -20,7 +23,7 @@
 # Comment          : First Github release
 #                  :
 #------------------:
-# Comments         : Recover Raspberry Pi SD Card information from the SD Card 
+# Comments         : Recover Raspberry Pi SD Card information from the SD Card
 #                  : CID
 #                  :
 #                  : Original source location :
@@ -39,6 +42,7 @@ readonly App_version="00.30"                      # Version      - ##.##
 readonly App_rel_date="2022-12-04"                # Release date - yyyy-mm-dd
 readonly App_rel_time="00:00"                     # Release time - hh:mm
 readonly App_Name="SDInfo"                        # Default application name
+readonly App_Loc="https://api.github.com/repos/OneOfTheInfiniteMonkeys/sdinfo"
 
 #--------------------------------------
 
@@ -55,7 +59,7 @@ readonly App_Name="SDInfo"                        # Default application name
 # cyan      COLOR_CYAN        6     0,max,max
 # white     COLOR_WHITE       7     max,max,max
 
-# The format of color coding below permits use of colour codes via printf "%s" $COL_StdText
+# The format of colour coding below permits use of colour codes via printf "%s" $COL_StdText
 COL_Logo=""
 #COL_StdText=""
 #COL_MnuText=""
@@ -78,16 +82,16 @@ COL_WhiteText=$(tput setaf 7)            # Bright White
 # Set defaults for any Command Line Parameters
 #---------------------------------------
 cmd_additional="n"                                # Don't output additional detection information
-cmd_minimal="n"                                   # Don't ouput minimal information (i.e. use standard information output)
-cmd_cidsrc="/"                                    # Default path to start seaching for CID - reduces potential miss hits
-cmd_extcid=""                                     # Empty for no externaly supplied CID string
+cmd_minimal="n"                                   # Don't output minimal information (i.e. use standard information output)
+cmd_cidsrc="/"                                    # Default path to start searching for CID - reduces potential miss hits
+cmd_extcid=""                                     # Empty for no externally supplied CID string
 cmd_table="y"                                     # Table output format
 
 #---------------------------------------
 # Process Command Line Parameters
 #---------------------------------------
 PROG=${0##*/}                                     # Get script name to reporting in help as script may be adapted for other installs
-# Now see if a cry for 'help' was issued giving it absolute priority, even if other paramters were passed
+# Now see if a cry for 'help' was issued giving it absolute priority, even if other parameters were passed
 while [[ $# -gt 0 ]] ; do
     case "$1" in
         -a|--additional)
@@ -109,16 +113,26 @@ while [[ $# -gt 0 ]] ; do
 	    # Basic tests passed - assign user supplied CID for processing
 	    cmd_extcid=$2
 	    ;;
+        -cv|--checkversion)
+            # Check version released on Github
+            printf "%s version : %s\n" "$App_Name" "$App_version"
+            printf "Searching git... \r"
+            Git_Ver=$(curl -s https://api.github.com/repos/OneOfTheInfiniteMonkeys/sdinfo/releases/latest | grep 'tag_name' | cut -d\" -f4)
+            printf "Latest Release : %s\n" "${Git_Ver/\./0.}"
+            printf "\n"
+            printf "git cloned installations, use git pull to update from the repository.\n"
+            exit 0
+            ;;
         -m|--minimal)
-            # Minimal output infomation. i.e. No banners or other messages
+            # Minimal output information. i.e. No banners or other messages
             cmd_minimal="y"
             ;;
         -s|--sourcepath)
 	    # User supplied location of CID file
             if [ -d "$2" ] ; then
               printf "Directory %s \n" "$2"
-              cmd_cidsrc="$2"  
-            else 
+              cmd_cidsrc="$2"
+            else
               printf "Unable to locate folder\n"
               exit 1
             fi
@@ -126,7 +140,7 @@ while [[ $# -gt 0 ]] ; do
          -t|--table)
 	    # Don't output results as a table, output on one line
             cmd_table="n"
-            ;;			
+            ;;
         -v|--version)
             printf "      %s %s %s ( %s %s ) \n" "$App_Name" "$PROG" "$App_version" "$App_rel_date" "$App_rel_time"
             exit 0
@@ -135,11 +149,13 @@ while [[ $# -gt 0 ]] ; do
             printf " Usage: %s [OPTION...] [COMMAND]...\n" "$PROG"
             printf " Options:\n"
             printf "   -a, --additional       Output additional information during operation\n"
-            printf "   -m, --minimal          Only minimal ouptut from the script.\n"
+            printf "   -m, --minimal          Only minimal output from the script.\n"
             printf "                            i.e. No banners or other messages.\n"
+            printf ""
             printf " Commands:\n"
             printf "   -h, --help, -?         Displays this help and exits\n"
-            printf "   -v, --version          Displays output version and exits\n"
+            printf "   -v, --version          Displays local and if possible Github version and exits\n"
+            printf ""
             printf " Examples:\n"
             printf "   %s -h \n" "$PROG"
             printf "   %s -a \n" "$PROG"
@@ -175,7 +191,7 @@ function Logo() {
 # Inputs           :
 #                  : None
 #------------------:
-# Ouputs           :
+# Outputs          :
 #                  : None
 #------------------:
 # Globals          :
@@ -209,6 +225,9 @@ if [[ $cmd_minimal = "n" ]] ; then
 fi  
 
 if [[ $cmd_extcid = "" ]] ; then 
+  if [[ $cmd_minimal = "n" ]] ; then
+    printf "Locating CID...\r"
+  fi	
   cidpath=$(find "$cmd_cidsrc" -name "cid" -print 2>/dev/null)
   cidinfo=$(cat "$cidpath")
 else
@@ -253,7 +272,7 @@ crc=${cidinfo:30:2} #    2 chars - 1 byte   - Data CRC - 7 bits (LSB always 1 i.
 #((mdt&=4095))       #    Limit MDT to 12 bits
 
 if [[ $cmd_additional = "y" ]] ; then
-  # output raw infromation from CID
+  # output raw information from CID
   printf "MID : %s\n" "$mid"
   printf "OID : %s\n" "$oid"
   printf "PNM : %s\n" "$pnm"
@@ -473,7 +492,7 @@ d_psn=$((16#$psn))
 # Decode the manufactured date contained within the CID string
 d_mdt=""
 d_mdt=$((16#${mdt:0:2})) #                          Extract the year from the CID
-d_mdt=$((d_mdt + 2000))  #                          Add the centry offset of 2000
+d_mdt=$((d_mdt + 2000))  #                          Add the century offset of 2000
 if [[ $d_mdt -gt $(date +%Y) ]] ; then  #           Probable date coding error - not to SD format rules
   d_mdt=2000
 fi
@@ -483,7 +502,7 @@ if [[ $d_mdm -gt 12 ]] || [[ $d_mdm = 0 ]] ; then # Probable date coding error -
   d_mdm=1
 fi 
 
-d_mdt=$d_mdt"/"$d_mdm #                             Concatenate Year and month with sperator
+d_mdt=$d_mdt"/"$d_mdm #                             Concatenate Year and month with separator
 # Calculate approximate number of days - assume 1st of month
 d_ndy=$(( ($(date +%s ) - $(date --date="$d_mdt"/1 +%s)) / (86400)  )) # 
 
