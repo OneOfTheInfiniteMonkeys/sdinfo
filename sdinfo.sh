@@ -39,8 +39,8 @@
 
 
 #---------------------------------------
-readonly App_version="00.30"                      # Version      - ##.##
-readonly App_rel_date="2022-12-04"                # Release date - yyyy-mm-dd
+readonly App_version="00.40"                      # Version      - ##.##
+readonly App_rel_date="2022-12-07"                # Release date - yyyy-mm-dd
 readonly App_rel_time="00:00"                     # Release time - hh:mm
 readonly App_Name="SDInfo"                        # Default application name
 
