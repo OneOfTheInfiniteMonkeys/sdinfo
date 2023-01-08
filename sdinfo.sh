@@ -6,14 +6,18 @@
 
 #--------><--------><--------><--------><--------><--------><--------><-------->
 # Author           : OneOfTheInfinteMonkeys
-# Revision         : 0.5
+# Revision         : 0.6
 # Date             : 08 Jan 2023
 # License          : MIT
+# Comments         : String representation consistency
+#------------------:
+# Revision         : 0.5
+# Date             : 08 Jan 2023
 # Comments         : Corrected operator for additional card list
 #                  : Added Nextbase to Phison aka list
 #                  :   Nextbase 32 GB - CID 275048534433324760702c048c0157f9
 #                  : Added over printed white space to clear Locating message
-#------------------:
+#                  :
 # Revision         : 0.4
 # Date             : 07 Dec 2022
 # Comments         : Added check version -cv against Github - spell check on comments
@@ -46,7 +50,7 @@
 
 
 #---------------------------------------
-readonly App_version="00.50"                      # Version      - ##.##
+readonly App_version="00.60"                      # Version      - ##.##
 readonly App_rel_date="2023-01-08"                # Release date - yyyy-mm-dd
 readonly App_rel_time="00:00"                     # Release time - hh:mm
 readonly App_Name="SDInfo"                        # Default application name
@@ -521,7 +525,7 @@ d_ndy=$(( ($(date +%s ) - $(date --date="$d_mdt"/1 +%s)) / (86400)  )) #
 if [[ $cmd_table = "y" ]] ; then
   # Table output
   printf "MID : %s\n" "$d_mid"
-  if [[ $d_mid_aka > '' ]] ; then
+  if [[ $d_mid_aka > "" ]] ; then
     if [[ $cmd_additional = "y" ]] ; then
       printf "AKA : %s\n" "$d_mid_aka"
     fi	 
