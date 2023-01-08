@@ -525,7 +525,7 @@ d_ndy=$(( ($(date +%s ) - $(date --date="$d_mdt"/1 +%s)) / (86400)  )) #
 if [[ $cmd_table = "y" ]] ; then
   # Table output
   printf "MID : %s\n" "$d_mid"
-  if [[ $d_mid_aka > "" ]] ; then
+  if [[ $d_mid_aka != "" ]] ; then
     if [[ $cmd_additional = "y" ]] ; then
       printf "AKA : %s\n" "$d_mid_aka"
     fi	 
