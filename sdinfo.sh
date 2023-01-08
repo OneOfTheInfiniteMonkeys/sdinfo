@@ -6,11 +6,18 @@
 
 #--------><--------><--------><--------><--------><--------><--------><-------->
 # Author           : OneOfTheInfinteMonkeys
+# Revision         : 0.5
+# Date             : 08 Jan 2023
+# License          : MIT
+# Comments         : Corrected operator for additional card list
+#                  : Added Nextbase to Phison aka list
+#                  :   Nextbase 32 GB - CID 275048534433324760702c048c0157f9
+#                  : Added over printed white space to clear Locating message
+#------------------:
 # Revision         : 0.4
 # Date             : 07 Dec 2022
-# License          : MIT
 # Comments         : Added check version -cv against Github - spell check on comments
-#------------------:
+#                  :
 # Revision         : 0.3
 # Date             : 04 Dec 2022
 # Comment          : Updated card list, minor format changes to comments - Apacer 0xAD
@@ -39,8 +46,8 @@
 
 
 #---------------------------------------
-readonly App_version="00.40"                      # Version      - ##.##
-readonly App_rel_date="2022-12-07"                # Release date - yyyy-mm-dd
+readonly App_version="00.50"                      # Version      - ##.##
+readonly App_rel_date="2023-01-08"                # Release date - yyyy-mm-dd
 readonly App_rel_time="00:00"                     # Release time - hh:mm
 readonly App_Name="SDInfo"                        # Default application name
 
@@ -230,6 +237,8 @@ if [[ $cmd_extcid = "" ]] ; then
   fi	
   cidpath=$(find "$cmd_cidsrc" -name "cid" -print 2>/dev/null)
   cidinfo=$(cat "$cidpath")
+  # Over print to clear Locating text when above commands completed
+  printf "               \r"
 else
   cidpath="/"
   cidinfo=$cmd_extcid
@@ -352,7 +361,7 @@ case $mid in
   '27')
     d_mid='Phison'
     d_mid_id='20'
-	d_mid_aka='7DAYSHOP, AgfaPhoto, Delkin, Emtec, Flexon, HIDISC, Integral, Lexar, Medion, Patriot, Philips, Polariod, Promaster, Sony, Verbatim'
+	d_mid_aka='7DAYSHOP, AgfaPhoto, Delkin, Emtec, Flexon, Nextbase, HIDISC, Integral, Lexar, Medion, Patriot, Philips, Polariod, Promaster, Sony, Verbatim'
 	;;
   '28')
     d_mid='Lexar'
@@ -512,7 +521,7 @@ d_ndy=$(( ($(date +%s ) - $(date --date="$d_mdt"/1 +%s)) / (86400)  )) #
 if [[ $cmd_table = "y" ]] ; then
   # Table output
   printf "MID : %s\n" "$d_mid"
-  if [[ $d_mid_aka -gt '' ]] ; then
+  if [[ $d_mid_aka > '' ]] ; then
     if [[ $cmd_additional = "y" ]] ; then
       printf "AKA : %s\n" "$d_mid_aka"
     fi	 
