@@ -54,6 +54,16 @@ The Git Pull command will download the latest version of the repository, immedia
 run git  
 &nbsp;&nbsp; sudo git pull  
 
+### Version check against GIT
+Using the -cv option and an available internet connection allows the running version variant to be checked against the release version on GitHub (Git is not required for this operation).  
+Example usage:  
+&nbsp;&nbsp; cd ~/sdinfo  
+&nbsp;&nbsp; bash sdinfo.sh -cv  
+
+  Output example  
+SDInfo version : 00.60  
+Latest Release : 00.6  
+
 ### Options
 sdinfo supports the following command line parameters :  
 
@@ -66,7 +76,7 @@ sdinfo supports the following command line parameters :
 ### Commands
 <table>
   <tr><td>-c, --cid          </td><td> Provide a CID string to be decoded </td></tr>
-  <tr><td>-cv, --checkversion</td><td> Display local code version and github version </td></tr>
+  <tr><td>-cv, --checkversion</td><td> Display local code version and GitHub version </td></tr>
   <tr><td>-s, --sourcepath   </td><td> Provide a path to the CID (faster if you know the location or have alternate locations) </td></tr>
   <tr><td>-h, --help, -?     </td><td> Displays this help and exits </td></tr>
   <tr><td>-v, --version      </td><td> Displays version information for sdinfo and exits </td></tr>
