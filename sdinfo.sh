@@ -487,7 +487,7 @@ esac
 #---------------------------------------
 # Decode the OEM ID a two character ASCII code frm the two hex OID bytes
 d_oid=""
-d_oid=$(printf "\x${oid:0:2}\x${oid:2:2}")
+d_oid=$(printf "%s" "$(printf "\x${oid:0:2}\x${oid:2:2}")")
 
 #---------------------------------------
 # Decode the Part Name from hex to decimal
