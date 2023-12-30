@@ -6,11 +6,16 @@
 
 #--------><--------><--------><--------><--------><--------><--------><-------->
 # Author           : OneOfTheInfinteMonkeys
+# Revision         : 0.7
+# Date             : 30 Dec 2023
+# License          : MIT
+# Comments         : Remove external xxd command from decoding hex to ASCII in Part Name & OEM ID
+#                  : Enables operation on PiOs for Raspberry Pi 5 (xxd removed from distro)
+#------------------:
 # Revision         : 0.6
 # Date             : 08 Jan 2023
-# License          : MIT
 # Comments         : String representation consistency
-#------------------:
+#                  :
 # Revision         : 0.5
 # Date             : 08 Jan 2023
 # Comments         : Corrected operator for additional card list
@@ -233,12 +238,12 @@ if [[ $cmd_minimal = "n" ]] ; then
   printf " - All data for indication only !"
   printf "\r                                  "
   printf "\n"
-fi  
+fi
 
-if [[ $cmd_extcid = "" ]] ; then 
+if [[ $cmd_extcid = "" ]] ; then
   if [[ $cmd_minimal = "n" ]] ; then
     printf "Locating CID...\r"
-  fi	
+  fi
   cidpath=$(find "$cmd_cidsrc" -name "cid" -print 2>/dev/null)
   cidinfo=$(cat "$cidpath")
   # Over print to clear Locating text when above commands completed
@@ -474,7 +479,7 @@ case $mid in
         ;;
   *)
     d_mid='unknown'
-	d_mid_id='XX' 
+	d_mid_id='XX'
 	d_mid_aka=''
 	;;
 esac
@@ -482,16 +487,12 @@ esac
 #---------------------------------------
 # Decode the OEM ID a two character ASCII code frm the two hex OID bytes
 d_oid=""
-if [[ $((16#${oid:0:2})) -lt 32 ]] || [[ $((16#${pnm:2:2})) -lt 32 ]] ; then
-  d_oid=$((16#${oid:0:2}))$((16#${oid:2:2}))
-else
-  d_oid=$(printf "%s" "0x${oid:0:2}.0x${oid:2:2}" | xxd -r)
-fi  
+d_oid=$(printf "\x${oid:0:2}\x${oid:2:2}")
 
 #---------------------------------------
 # Decode the Part Name from hex to decimal
 d_pnm=""
-d_pnm=$(printf "%s" "0x${pnm:0:2}.0x${pnm:2:2}.0x${pnm:4:2}.0x${pnm:6:2}.0x${pnm:8:2}" | xxd -r)
+d_pnm=$(printf "\x${pnm:0:2}\x${pnm:2:2}\x${pnm:4:2}\x${pnm:6:2}\x${pnm:8:2}")
 
 d_prv=""
 d_prv=$prv
@@ -510,14 +511,14 @@ if [[ $d_mdt -gt $(date +%Y) ]] ; then  #           Probable date coding error -
   d_mdt=2000
 fi
 
-d_mdm=$((16#${mdt:2:1})) #                          Extract the month 
+d_mdm=$((16#${mdt:2:1})) #                          Extract the month
 if [[ $d_mdm -gt 12 ]] || [[ $d_mdm = 0 ]] ; then # Probable date coding error - not to SD format rules
   d_mdm=1
-fi 
+fi
 
 d_mdt=$d_mdt"/"$d_mdm #                             Concatenate Year and month with separator
 # Calculate approximate number of days - assume 1st of month
-d_ndy=$(( ($(date +%s ) - $(date --date="$d_mdt"/1 +%s)) / (86400)  )) # 
+d_ndy=$(( ($(date +%s ) - $(date --date="$d_mdt"/1 +%s)) / (86400)  )) #
 
 
 #---------------------------------------
@@ -528,7 +529,7 @@ if [[ $cmd_table = "y" ]] ; then
   if [[ $d_mid_aka != "" ]] ; then
     if [[ $cmd_additional = "y" ]] ; then
       printf "AKA : %s\n" "$d_mid_aka"
-    fi	 
+    fi
   fi
   printf "OID : %s\n" "$d_oid"
   if [[ $cmd_additional = "y" ]] ; then
@@ -543,10 +544,10 @@ if [[ $cmd_table = "y" ]] ; then
     printf "MDT : %s\n" "$d_mdt/1"
   else
     printf "MDT : %s\n" "$d_mdt"
-  fi  
+  fi
   if [[ $cmd_minimal = "n" ]] ; then
     printf "AID : %s\n" "$d_ndy"
-  fi  
+  fi
   printf "\n"
 else
   # Single line minimalist output
